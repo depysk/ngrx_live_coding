@@ -1,0 +1,162 @@
+<!-- Portfolio -->
+<div class="card border-dark mb-3" *ngFor="let portfolio of portfolios$|async; let i = index">
+  <div class="card-header bg-dark">
+    <a class="text-white" data-toggle="collapse" href="#portfolio{{ i }}">
+      Portefeuille {{ portfolio.domain }}
+    </a>
+  </div>
+  <div class="collapse show" id="portfolio{{ i }}">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <div class="row">
+            <div class="col-2"><strong>Prénoms</strong></div>
+            <div class="col-2"><strong>Noms</strong></div>
+            <div class="col-2"><strong>Date de naissance</strong></div>
+            <div class="col-1"><strong>Genre</strong></div>
+            <div class="col"></div>
+          </div>
+        </div>
+        <div class="col-12" *ngFor="let user of portfolio?.users">
+          <form #f="ngForm" (ngSubmit)="onUpdateUser(user)">
+          <div class="row">
+            <div class="col-2">
+              <span *ngIf="!user.editMode; else editFirstname">{{ user.firstname }}</span>
+              <ng-template #editFirstname>
+                <input type="text" name="firstname" class="form-control" [(ngModel)]="user.firstname">
+              </ng-template>
+            </div>
+            <div class="col-2">
+              <span *ngIf="!user.editMode; else editLastname">{{ user.lastname }}</span>
+              <ng-template #editLastname>
+                <input type="text" name="lastname" class="form-control" [(ngModel)]="user.lastname">
+              </ng-template>
+            </div>
+            <div class="col-2">
+              <span *ngIf="!user.editMode; else editBirthday">{{ user.birthday|date:'dd/MM/yyyy' }}</span>
+              <ng-template #editBirthday>
+                <input type="text" name="birthday" class="form-control" [(ngModel)]="user.birthday">
+              </ng-template>
+            </div>
+            <div class="col-1">
+              <span *ngIf="!user.editMode; else editGender">{{ user.gender }}</span>
+              <ng-template #editGender>
+                <input type="text" name="gender" class="form-control" [(ngModel)]="user.gender">
+              </ng-template>
+            </div>
+            <div class="col">
+              <button type="button"
+                      class="btn btn-outline-primary"
+                      data-toggle="modal"
+                      data-target="#userModal"
+                      (click)="onViewUser(user)"
+                      [disabled]="user.editMode">Voir</button>
+              <button type="button"
+                      class="btn btn-outline-success"
+                      *ngIf="!user.editMode"
+                      (click)="onEditUser(user)">Editer</button>
+              <button type="submit"
+                      class="btn btn-outline-success"
+                      *ngIf="user.editMode">Valider</button>
+              <button type="button"
+                      class="btn btn-outline-danger"
+                      (click)="onRemoveUserFromPortfolio(portfolio, user)"
+                      [disabled]="user.editMode">Supprimer</button>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Products -->
+<div class="card border-success mb-3">
+  <div class="card-header bg-success">
+    <a class="text-white" data-toggle="collapse" href="#products">
+      Produits
+    </a>
+  </div>
+  <div class="collapse show" id="products">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 mb-3">
+          <div class="row">
+            <div class="col-2"><strong>Nom du produit</strong></div>
+            <div class="col-2"><strong>Domaine</strong></div>
+            <div class="col"><strong>Clients</strong></div>
+          </div>
+        </div>
+        <div class="col-12" *ngFor="let product of products$|async">
+          <div class="row">
+            <div class="col-2">{{ product?.name }}</div>
+            <div class="col-2">{{ product?.domain }}</div>
+            <div class="col">
+              <a *ngFor="let user of product?.users"
+                 data-toggle="modal"
+                 data-target="#userModal"
+                 (click)="onViewUser(user)"
+                 class="btn">
+                <h5>
+                  <span class="badge badge-secondary">
+                    {{ user.firstname }} {{ user.lastname }}
+                  </span>
+                </h5>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="userModal" tabindex="-1">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Informations Utilisateur</h3>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">Prénom</div>
+          <div class="col">{{ currentUserToView?.firstname }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Nom</div>
+          <div class="col">{{ currentUserToView?.lastname }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Date de naissance</div>
+          <div class="col">{{ currentUserToView?.birthday|date:'dd/MM/yyyy' }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Genre</div>
+          <div class="col">{{ currentUserToView?.gender }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Situation Familiale</div>
+          <div class="col">{{ currentUserToView?.famillySituation }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Situation Professionnelle</div>
+          <div class="col">{{ currentUserToView?.professionalSituation }}</div>
+        </div>
+        <div class="row">
+          <div class="col">Matricule</div>
+          <div class="col">{{ currentUserToView?.registrationNumber }}</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

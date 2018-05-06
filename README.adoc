@@ -1,0 +1,11 @@
+= Ngrx Live coding
+
+== link:https://depysk.github.io/ngrx_live_coding/ngrx.html[**Slides**]
+
+== link:https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-vanilla-javascript[Redux pattern with **Vanilla Js**]
+
+== link:https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-redux-library[Use of redux library in simple javascript app]
+
+== link:https://github.com/depysk/ngrx_live_coding/tree/master/redux-project-with-angular[Ngrx integration with Angular app]
+
+== link:https://github.com/depysk/ngrx_live_coding/tree/master/bank-advisor[Focus on **@ngrx/effects** and **lazy-loading**]

@@ -1,0 +1,10 @@
+= Ngrx integration with Angular app
+
+== Checkout the folder redux-project-with-angular/
+
+== Install dépendencies
+`npm install`
+
+== Launch app
+* `ng serve` 
+* Navigate to `http://localhost:4200/`.

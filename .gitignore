@@ -1,0 +1,10 @@
+redux-project-with-angular/node_modules
+redux-project-with-angular/.idea
+bank-advisor/.idea
+bank-advisor/target
+bank-advisor/bank-advisor-core/target
+bank-advisor/bank-advisor-core/bank-advisor-core.iml
+bank-advisor/bank-advisor-rest/target
+bank-advisor/bank-advisor-rest/bank-advisor-rest.iml
+bank-advisor/bank-advisor-web/node_modules
+bank-advisor/bank-advisor-web/package-lock.json
