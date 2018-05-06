@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" content="text/html">
+    <title>Redux with javascript</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container-fluid pt-5">
+    <div class="row mt-2">
+        <div class="col">
+            <h2>Redux with javascript</h2>
+        </div>
+    </div>
+    <div class="row mt-5 py-2">
+        <div class="col-8">
+            <h4>Ajouter un TODO</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <input type="text" name="text" class="form-control" id="add-todo-input" placeholder="Ajouter un TODO">
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-primary w-100" id="add-todo-btn">Ajouter</button>
+        </div>
+    </div>
+    <div class="row mt-5 py-2">
+        <div class="col-4">
+            <h4>Liste des TODOs</h4>
+        </div>
+        <div class="col-4">
+            <select name="visibility" id="todos-visibility" class="form-control">
+                <option value="SHOW_ALL">Tous</option>
+                <option value="SHOW_COMPLETED">Complété</option>
+                <option value="SHOW_NOT_COMPLETED">Non complété</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Todo</th>
+                        <th>Complété ?</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="todo-list"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="./app.js"></script>
+</body>
+</html>

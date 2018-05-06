@@ -1,0 +1,30 @@
+debug: true
+
+server:
+  port: 8080
+  servlet:
+    context-path: /ws
+
+spring:
+  jersey:
+    application-path: /api
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:./target/data/bank-advisor
+    username: sa
+    password:
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  jackson:
+    default-property-inclusion: non_null
+  liquibase:
+    enabled: true
+    drop-first: true
+    change-log: classpath:db/master.xml
+    url: jdbc:h2:./target/data/bank-advisor
+    user: sa
+    password:
+    check-change-log-location: true

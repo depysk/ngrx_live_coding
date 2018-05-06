@@ -1,0 +1,5 @@
+= Simple Todo Project with Vanilla Js using Redux Pattern
+
+== Checkout the folder redux-project-with-vanilla-javascript/
+
+== Launch index.html

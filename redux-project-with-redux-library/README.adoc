@@ -1,0 +1,5 @@
+= Simple Todo Project with Vanilla Js and Redux library
+
+== Checkout the folder redux-project-with-redux-library/
+
+== Launch index.html

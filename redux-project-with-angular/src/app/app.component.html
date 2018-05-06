@@ -1,0 +1,65 @@
+<div class="container-fluid pt-5">
+  <div class="row mt-2">
+    <div class="col">
+      <h2>Redux on Angular App</h2>
+    </div>
+  </div>
+  <div class="row mt-5 py-2">
+    <div class="col-8">
+      <h4>Ajouter un TODO</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-6">
+      <input type="text" name="text" class="form-control" placeholder="Ajouter un TODO" #addTodoInput>
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-primary w-100" (click)="addTodo(addTodoInput.value)">Ajouter</button>
+    </div>
+  </div>
+  <div class="row mt-5 py-2">
+    <div class="col-4">
+      <h4>Liste des TODOs</h4>
+    </div>
+    <div class="col-4">
+      <select
+        name="visibility"
+        (change)="filterVisibility(visibility.value)"
+        class="form-control"
+        #visibility>
+        <option value="SHOW_ALL">Tous</option>
+        <option value="SHOW_COMPLETED">Complété</option>
+        <option value="SHOW_NOT_COMPLETED">Non complété</option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Todo</th>
+          <th>Complété ?</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let todo of todos$|async; let i = index">
+            <td [ngClass]="todo.completed ? 'strike' : ''">{{todo.text}}</td>
+            <td>{{todo.completed ? 'Oui' : 'Non'}}</td>
+            <td>
+              <button
+                type="button"
+                class="btn btn-primary"
+                (click)="toggleTodo(i)">Switcher</button>
+              <button
+                type="button"
+                class="btn btn-danger"
+                (click)="removeTodo(i)">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

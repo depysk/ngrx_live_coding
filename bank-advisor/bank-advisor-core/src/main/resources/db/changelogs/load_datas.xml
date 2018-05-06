@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1" author="pkassem">
+        <!-- load users -->
+        <loadData file="../datas/users.csv"
+                  relativeToChangelogFile="true"
+                  tableName="USER">
+            <column name="birthday" header="birthday" type="date"/>
+        </loadData>
+
+        <!-- load portfolios -->
+        <loadData file="../datas/portfolios.csv"
+                  relativeToChangelogFile="true"
+                  tableName="PORTFOLIO">
+            <column name="id" type="NUMERIC"/>
+        </loadData>
+
+        <!-- load join table portfolio_user -->
+        <loadData file="../datas/portfolios_users.csv"
+                  relativeToChangelogFile="true"
+                  tableName="PORTFOLIO_USER">
+            <column name="portfolio_id" type="NUMERIC"/>
+            <column name="user_id" type="NUMERIC"/>
+        </loadData>
+
+        <!-- load products -->
+        <loadData file="../datas/products.csv"
+                  relativeToChangelogFile="true"
+                  tableName="PRODUCT">
+            <column name="id" type="NUMERIC"/>
+        </loadData>
+
+        <!-- load join table product_user -->
+        <loadData file="../datas/products_users.csv"
+                  relativeToChangelogFile="true"
+                  tableName="PRODUCT_USER">
+            <column name="product_id" type="NUMERIC"/>
+            <column name="user_id" type="NUMERIC"/>
+        </loadData>
+
+    </changeSet>
+</databaseChangeLog>

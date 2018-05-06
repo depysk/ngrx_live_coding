@@ -1,0 +1,141 @@
+= Bank Advisor Exercice
+
+== Contexte
+
+Vous avez intégrer récemment l'équipe de développement d'une solution logicielle pour la gestion financière d'un portefeuille client. Etant donné les problématiques liées aux besoinx client votre équipe décide d'intégrer ngrx pour gérer le workflow des données de l'application.
+
+.L'application **Bank-advisor** est constituée de 3 modules :
+* bank-advisor-core : constitue la partie backend centrale de l'application en définissant les objets domaines, la persistance de ces objets et les fonctionnalités de l'application.
+* bank-advisor-rest : expose les différentes fonctionnalités du module **bank-advisor-core** sous forme d'API REST
+* bank-advisor-rest : constitue la partie frontend de l'application
+
+.Technos :
+* Partie backend : Java8, stack Springboot 2.0.1.RELEASE, Tomcat, Base de données en mémoire H2
+* Partie frontend : Angular 5, bootstrap 4
+
+.Environnement:
+* Avoir une version 8 du JDK installée sur son poste
+* Avoir une version v8.x de NodeJs installée sur son poste
+* Avoir git d'installer
+* Avoir maven d'installer
+* Avoir un IDE : Intellij (de préférence :)), Eclipse
+
+.Démarrage
+* Lancer le serveur Tomcat depuis le module **bank-advisor-rest**.
+* Vous pouvez vérifier que le serveur Tomcat est bien lancé depuis l'url http://localhost:8080/ws/actuator/health
+* Installer les dépendances de l'application angular depuis le module **bank-advisor-web** via la commande : **npm install**
+* Lancer l'application angular depuis le module **bank-advisor-web** via la commande : **ng serve**
+* Rendez-vous sur la page http://localhost:4200
+* la base de données en mémoire est disponible depuis l'url http://localhost:8080/ws/h2-console
+** Driver Class: org.h2.Driver
+** JDBC URL: jdbc:h2:./target/data/bank-advisor
+** User Name: sa
+** Password (pas de mot de passe):
+
+
+== Partie 1 
+
+.Mettez en place NGRX sur la partie front **bank-advisor-web** de l'application pour la gestion des portefeuilles tout en maintenant les fonctionnalités existantes
+* Affichage des portefeuilles existants
+* Visualisation d'un utilisateur au niveau d'un portefeuille
+* Edition d'un utilisateur au niveau d'un portefeuille
+* Suppression d'un utilisateur au niveau d'un portefeuille
+
+.Instructions
+. Installer les packages **@ngrx/schematics**, **@ngrx/store** et **@ngrx/store-devtools** au niveau du module **bank-advisor-web**
+
+----
+npm install @ngrx/schematics --save-dev
+npm install @ngrx/store --save
+npm install @ngrx/store-devtools --save
+----
+
+[start=2]
+. Créer le répertoire store qui va contenir les différents éléments du store via la commande :
+
+----
+ng generate store State --root --statePath store --module app.module.ts --collection @ngrx/schematics
+----
+
+[start=3]
+. Etablir la liste des actions : sous le répertoire **store** créer le fichier **portfolio.actions.ts** qui va contenir la liste des actions liées à la gestion du portfeuille
+* FETCH_PORTFOLIOS : permet de récupérer la liste des portefeuilles existants
+* PORTFOLIOS_EDIT_USER : permet d'éditer un utilisateur d'un portefeuille
+* PORTFOLIOS_DELETE_USER : permet de supprimer un utilisateur d'un portefeuille
+
+Ou via une commande @ngrx/schematics
+
+----
+ng generate action store/Portfolio --collection @ngrx/schematics
+----
+
+[start=4]
+. Créer la fonction Reducer **portfolioReducer** responsable de l'état des portefeuilles : sous le répertoire **store** créer le fichier **portfolio.reducers.ts** qui gérera les actions liées à la gestion du portfeuille
+
+----
+export const portfolioReducer = (state: Portfolio[] = [], action: Action) => {
+  switch (action.type) {
+  }
+}
+----
+
+Ou via une commande @ngrx/schematics
+
+----
+ng generate reducer store/Portfolio --reducers store/index.ts --spec false --collection @ngrx/schematics
+----
+
+[start=5]
+. Gérer les interactions du backend : 
+* Récupération des portefeuilles
+* Edition d'un utilisateur d'un portefeuille
+* Suppression d'un utilisateur d'un portefeuille
+
+Installer le package **@ngrx/effects** au niveau du module **bank-advisor-web**
+
+----
+npm install @ngrx/effects --save
+----
+
+[start=6]
+. Créer le fichier **portfolio.effects.ts** qui contiendra les interactions avec le backend
+
+----
+ng generate effect store/Portfolio --root -m app.module.ts --spec false --collection @ngrx/schematics
+----
+
+[start=7]
+. Introduction des actions :
+* FETCH_PORTFOLIOS_COMPLETED
+* PORTFOLIOS_EDIT_USER_COMPLETED
+* PORTFOLIOS_DELETE_USER_COMPLETED
+
+A l'aide des service @Effect construiser le workflow de vos données pour gérer les effets de bord
+
+== Partie 2
+
+[start=1]
+.Normaliser les données de votre store
+* Installer le package **normalizr**
+
+----
+npm install normalizr --save
+----
+
+* Créer vos schémas de données
+
+
+== Partie 3
+
+.Création de deux feature modules pour mieux organiser son code: PortfoliosModule et ProductsModule
+
+. Structuration des feature modules
+* Créer un répertoire feature-modules qui va contenir tous les features modules
+* créer le feature module PortfoliosModule sous le répertoire **feature-modules/portfolios** 
+* créer le feature module ProductsModule sous le répertoire **feature-modules/products** 
+
+. Réorganiser le store en attribuant à chaque feature module son périmètre d'action
+
+. Refactoriser le feature module en introduisant NGRX
+
+. Mise en place du **lazy-loading** au niveau des feature modules

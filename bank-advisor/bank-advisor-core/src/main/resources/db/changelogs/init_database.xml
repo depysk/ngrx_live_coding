@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1" author="pkassem">
+        <!-- Sequences -->
+        <createSequence cycle="false"
+                        incrementBy="1"
+                        sequenceName="user_seq_id"
+                        startValue="19"/>
+        <createSequence cycle="false"
+                        incrementBy="1"
+                        sequenceName="portfolio_seq_id"
+                        startValue="3"/>
+        <createSequence cycle="false"
+                        incrementBy="1"
+                        sequenceName="product_seq_id"
+                        startValue="5"/>
+
+        <!-- Table : User -->
+        <createTable tableName="USER">
+            <column name="ID" type="number" valueComputed="user_seq_id.nextval" remarks="clé primaire">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="FIRSTNAME" type="varchar2" remarks="Prénom"/>
+            <column name="LASTNAME" type="varchar2" remarks="Nom"/>
+            <column name="BIRTHDAY" type="date" remarks="Date de naissance"/>
+            <column name="GENDER" type="varchar2" remarks="Genre"/>
+            <column name="FAMILY_SITUATION" type="varchar2" remarks="Situation familiale"/>
+            <column name="PROFESSIONAL_SITUATION" type="varchar2" remarks="Situation professionnelle"/>
+            <column name="REGISTRATION_NUMBER" type="varchar2" remarks="Matricule"/>
+        </createTable>
+
+        <!-- Table : Portfolio -->
+        <createTable tableName="PORTFOLIO">
+            <column name="ID" type="number" valueComputed="portfolio_seq_id.nextval" remarks="clé primaire">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="DOMAIN" type="varchar2" remarks="Domaine portefeuille client"/>
+        </createTable>
+
+        <!-- Table de jointure : Portfolio & User -->
+        <createTable tableName="PORTFOLIO_USER">
+            <column name="PORTFOLIO_ID" type="number" remarks="clé étrangère référencant l'id du portfolio">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="USER_ID" type="number" remarks="clé étrangère référencant l'id de l'utilisateur">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Table : Product -->
+        <createTable tableName="PRODUCT">
+            <column name="ID" type="number" valueComputed="product_seq_id.nextval" remarks="clé primaire">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="NAME" type="varchar2" remarks="Nom du produit"/>
+            <column name="DOMAIN" type="varchar2" remarks="Domaine du produit"/>
+        </createTable>
+
+        <!-- Table de jointure : Product & User -->
+        <createTable tableName="PRODUCT_USER">
+            <column name="PRODUCT_ID" type="number" remarks="clé étrangère référencant l'id du produit">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="USER_ID" type="number" remarks="clé étrangère référencant l'id de l'utilisateur">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+        </createTable>
+
+        <!-- Contraintes -->
+        <addForeignKeyConstraint baseTableName="PORTFOLIO_USER"
+                                 baseColumnNames="PORTFOLIO_ID"
+                                 constraintName="fk_portfolio_user_1"
+                                 referencedTableName="PORTFOLIO"
+                                 referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="PORTFOLIO_USER"
+                                 baseColumnNames="USER_ID"
+                                 constraintName="fk_portfolio_user_2"
+                                 referencedTableName="USER"
+                                 referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="PRODUCT_USER"
+                                 baseColumnNames="PRODUCT_ID"
+                                 constraintName="fk_product_user_1"
+                                 referencedTableName="PRODUCT"
+                                 referencedColumnNames="ID"/>
+        <addForeignKeyConstraint baseTableName="PRODUCT_USER"
+                                 baseColumnNames="USER_ID"
+                                 constraintName="fk_product_user_2"
+                                 referencedTableName="USER"
+                                 referencedColumnNames="ID"/>
+    </changeSet>
+</databaseChangeLog>
