@@ -16,6 +16,11 @@ import {HomeComponent} from "./components/home/home.component";
 import {FormsModule} from "@angular/forms";
 import {WebsocketService} from "./utils/websocket.service";
 import {ProductsService} from "./services/products.service";
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+import { PortfolioEffects } from './store/portfolio.effects';
 
 
 @NgModule({
@@ -27,7 +32,10 @@ import {ProductsService} from "./services/products.service";
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([PortfolioEffects])
   ],
   providers: [
     PortfoliosService,

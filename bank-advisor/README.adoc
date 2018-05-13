@@ -58,9 +58,19 @@ ng generate store State --root --statePath store --module app.module.ts --collec
 ----
 
 [start=3]
-. Sous le répertoire **store** créer le fichier **portfolio.actions.ts** qui va contenir la liste des actions liées à la gestion du portfeuille :
+. Etablir la liste des actions : sous le répertoire **store** créer le fichier **portfolio.actions.ts** qui va contenir la liste des actions liées à la gestion du portfeuille
 * FETCH_PORTFOLIOS : permet de récupérer la liste des portefeuilles existants
-. Sous le répertoire **store** créer le fichier **portfolio.reducers.ts** qui gérera les actions liées à la gestion du portfeuille
+* PORTFOLIOS_EDIT_USER : permet d'éditer un utilisateur d'un portefeuille
+* PORTFOLIOS_DELETE_USER : permet de supprimer un utilisateur d'un portefeuille
+
+Ou via une commande @ngrx/schematics
+
+----
+ng generate action store/Portfolio --collection @ngrx/schematics
+----
+
+[start=4]
+. Créer la fonction Reducer **portfolioReducer** responsable de l'état des portefeuilles : sous le répertoire **store** créer le fichier **portfolio.reducers.ts** qui gérera les actions liées à la gestion du portfeuille
 
 ----
 export const portfolioReducer = (state: Portfolio[] = [], action: Action) => {
@@ -69,15 +79,26 @@ export const portfolioReducer = (state: Portfolio[] = [], action: Action) => {
 }
 ----
 
+Ou via une commande @ngrx/schematics
+
+----
+ng generate reducer store/Portfolio --reducers store/index.ts --spec false --collection @ngrx/schematics
+----
+
 [start=5]
-. Installer le package **@ngrx/effects** au niveau du module **bank-advisor-web**
+. Gérer les interactions du backend : 
+* Récupération des portefeuilles
+* Edition d'un utilisateur d'un portefeuille
+* Suppression d'un utilisateur d'un portefeuille
+
+Installer le package **@ngrx/effects** au niveau du module **bank-advisor-web**
 
 ----
 npm install @ngrx/effects --save
 ----
 
 [start=6]
-. Créer le fichier **portfolio.effects.ts** qui gérera la partie **portfolio** de l'etat global de l'application avec le backend
+. Créer le fichier **portfolio.effects.ts** qui contiendra les interactions avec le backend
 
 ----
 ng generate effect store/Portfolio --root -m app.module.ts --spec false --collection @ngrx/schematics
