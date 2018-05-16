@@ -105,11 +105,16 @@ ng generate effect store/Portfolio --root -m app.module.ts --spec false --collec
 ----
 
 [start=7]
-. Introduction des actions FETCH_PORTFOLIOS_COMPLETED et FETCH_PORTFOLIOS_IN_ERROR
+. Introduction des actions :
+* FETCH_PORTFOLIOS_COMPLETED
+* PORTFOLIOS_EDIT_USER_COMPLETED
+* PORTFOLIOS_DELETE_USER_COMPLETED
+
+A l'aide des service @Effect construiser le workflow de vos données pour gérer les effets de bord
 
 == Partie 2
 
-.Faire de même pour la gestion des utilisateurs du portefeuille
+.Normaliser les données de votre store
 * EDIT_USER : Permet de persister les informations d'un utilisateur
 * REMOVE_USER : supprime un utilisateur du portefeuille 
 
