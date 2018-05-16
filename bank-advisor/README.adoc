@@ -114,9 +114,15 @@ A l'aide des service @Effect construiser le workflow de vos données pour gérer
 
 == Partie 2
 
+[start=1]
 .Normaliser les données de votre store
-* EDIT_USER : Permet de persister les informations d'un utilisateur
-* REMOVE_USER : supprime un utilisateur du portefeuille 
+* Installer le package **normalizr**
+
+----
+npm install normalizr --save
+----
+
+* Créer vos schémas de données
 
 
 == Partie 3

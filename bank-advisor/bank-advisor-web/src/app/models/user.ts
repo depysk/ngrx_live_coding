@@ -1,5 +1,3 @@
-import {FamilySituationEnum} from "./enum/family-situation.enum";
-import {ProfessionalSituationEnum} from "./enum/professional-situation.enum";
 
 export class User {
   id: number;
@@ -7,8 +5,8 @@ export class User {
   lastname: string;
   birthday: Date;
   gender: string;
-  famillySituation: FamilySituationEnum;
-  professionalSituation: ProfessionalSituationEnum;
+  famillySituation: string;
+  professionalSituation: string;
   registrationNumber: string;
 
   /* Données IHM */
